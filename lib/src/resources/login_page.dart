@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: _passController,
               text: 'Password',
               obscureText: true,
-              icon: const Icon(Icons.phone_outlined, color: Colors.black26,)
+              icon: const Icon(Icons.lock_outline_rounded, color: Colors.black26,)
             ),
             const Padding(
               padding: EdgeInsets.only(left: 190),
