@@ -1,4 +1,4 @@
-import 'package:car_app/src/resources/login_page.dart';
+import 'package:car_app/src/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

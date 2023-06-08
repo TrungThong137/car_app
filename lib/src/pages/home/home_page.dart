@@ -1,8 +1,9 @@
 import 'package:car_app/src/blocs/auth_bloc.dart';
 import 'package:car_app/src/firebase/firebase_auth.dart';
-import 'package:car_app/src/resources/login_page.dart';
+import 'package:car_app/src/models/infor_drawer.dart';
+import 'package:car_app/src/pages/login_page.dart';
 import 'package:car_app/src/widget/infor_card.dart';
-import 'package:car_app/src/widget/slide_menu.dart';
+import 'package:car_app/src/pages/home/slide_menu.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -124,9 +125,3 @@ List<InforDrawer> inforDrawer=[
   InforDrawer(icon: Icons.favorite_outline, text: 'Heart'),
   InforDrawer(icon: Icons.logout, text: 'Log out'),
 ];
-
-class InforDrawer{
-  IconData icon;
-  String text;
-  InforDrawer({required this.icon, required this.text});
-}
