@@ -35,6 +35,9 @@ class TextFieldPage extends StatelessWidget {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10)
             ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black),
+            ),
           ),
         ),
       ),

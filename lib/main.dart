@@ -1,4 +1,5 @@
 import 'package:car_app/src/resources/login_page.dart';
+import 'package:car_app/src/resources/welcom_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,9 +19,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
-      home: const LoginPage()
+      home: const WelcomPage()
     );
   }
 }

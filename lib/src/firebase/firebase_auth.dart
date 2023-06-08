@@ -33,7 +33,7 @@ class FireAuth{
           onSuccess();
         });
     }on FirebaseAuthException catch (e) {
-      onSignInError('SignUp fail, please try again');
+      onSignInError('Please try again');
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
       } else if (e.code == 'wrong-password') {
