@@ -35,7 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Color(0xff3277D8)),
+        iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
       ),
       body: SingleChildScrollView(
@@ -43,26 +43,27 @@ class _RegisterPageState extends State<RegisterPage> {
           padding: const EdgeInsets.only(bottom: 100),
           child: Column(
             children: [
-              Container(
-                width: double.maxFinite,
-                height: 200,
-                margin: const EdgeInsets.only(top: 5),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT47gJJz7Qtjkth1BQXQDHPRebgb9LE4kcQKQ&usqp=CAU'),
-                    fit: BoxFit.cover
-                  )
-                ),
-              ),
+              Image.asset('assets/app-icon1.png', color: Colors.black,),
+              // Container(
+              //   width: double.maxFinite,
+              //   height: 200,
+              //   margin: const EdgeInsets.only(top: 5),
+              //   decoration: const BoxDecoration(
+              //     image: DecorationImage(
+              //       image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT47gJJz7Qtjkth1BQXQDHPRebgb9LE4kcQKQ&usqp=CAU'),
+              //       fit: BoxFit.cover
+              //     )
+              //   ),
+              // ),
               const SizedBox(height: 20,),
               const TextLargest(
-                text: "Welcome Aboard!", 
+                text: "Sign up Your Account", 
               ),
               const SizedBox(height: 6,),
-              const TextSmall(
-                text: 'Signup with iCab in simple steps',
-                color: Colors.black54, 
-              ),
+              // const TextSmall(
+              //   text: 'Signup with iCab in simple steps',
+              //   color: Colors.black54, 
+              // ),
               const SizedBox(height: 20,),
               TextFieldPage(
                 stream: authBloc.nameStream,
@@ -92,8 +93,8 @@ class _RegisterPageState extends State<RegisterPage> {
         
               ButtonPage(
                 onTap: _onSignUpClicked,
-                text: 'Signup', 
-                color: Colors.blue, 
+                text: 'Sign up', 
+                color: Colors.black, 
                 colortext: Colors.white,
                 width: double.maxFinite,
                 height: 50,
@@ -102,13 +103,13 @@ class _RegisterPageState extends State<RegisterPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const TextSmall(text: 'Already a User? ', color: Colors.black45,),
+                  const TextSmall(text: 'Already have an account ? ', color: Colors.black45,),
                   InkWell(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) => const LoginPage(),));
                     },
-                    child: const TextSmall(text: 'Login now', color: Colors.blue,))
+                    child: const TextSmall(text: 'Login now', color: Colors.black,))
                 ],
               )
             ],
