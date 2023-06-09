@@ -132,6 +132,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLoginClick() {
+    String email = _emailController.text.trim();
+    String password = _passController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      MsgDialog.showMsgDialog(
+          context, 'Error', 'Please enter email and password.');
+      return;
+    }
+
     LoadingDialog.showLoadingDialog(context, 'loading...');
     authBloc.signIn(_emailController.text.trim(), _passController.text.trim(),
         () {

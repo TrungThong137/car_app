@@ -1,10 +1,7 @@
-// import 'package:car_app/access_screen/sign_up_page.dart';
-// import 'package:car_app/src/resources/login_page.dart';
 import 'package:car_app/src/pages/login_page.dart';
-
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:flutter/material.dart';
-// import 'package:car_buying_app/widget/active_button.dart';
+
 
 class WelcomPage extends StatelessWidget {
   const WelcomPage({super.key});
