@@ -1,3 +1,4 @@
+
 import 'package:car_app/src/pages/login_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:flutter/material.dart';
@@ -120,24 +121,24 @@ class _PreviewPageState extends State<PreviewPage> {
                   return Image.asset(
                     'assets/car${index + 1}.png',
                     width: 300,
-                    height: 300,
+                    height: 250,
                   );
                 },
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 150,
               width: 300,
               child: ListView.builder(
                 controller: _pageController2,
                 scrollDirection: Axis.horizontal,
-                reverse: true, // Đảo ngược thứ tự hiển thị
+                reverse: true, 
                 itemCount: 7,
                 itemBuilder: (context, index) {
                   return Image.asset(
                     'assets/car${index + 1}.png',
                     width: 300,
-                    height: 300,
+                    height: 250,
                   );
                 },
               ),
@@ -149,10 +150,11 @@ class _PreviewPageState extends State<PreviewPage> {
                   const Text(
                     'The best car in your\nhand with AutoTECH',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(height: 20),
                   ButtonPage(
                     onTap: () {
                       navigateSignUp(context);

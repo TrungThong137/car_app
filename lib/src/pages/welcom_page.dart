@@ -1,4 +1,4 @@
-// import 'package:car_app/src/pages/login_page.dart';
+
 import 'package:car_app/src/pages/preview_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:flutter/material.dart';
@@ -31,22 +31,25 @@ class WelcomPage extends StatelessWidget {
               const Text(
                 'HI, WELCOM TO',
                 style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 23,
                   // fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 7),
-              // Image.asset('assets/app-icon1.png', color: Colors.black),
-              const Text(
-                'AutoTECH',
-                style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,  
+                children: [
+                  Image.asset('assets/app-icon0.png', color: Colors.black),
+                  const Text(
+                    'AutoTECH',
+                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // const Text('The best car marketplace app for your journey'),
-                    // const SizedBox(height: 15),
                     ButtonPage(
                       onTap: () {
                         navigateSignUp(context);
@@ -60,13 +63,6 @@ class WelcomPage extends StatelessWidget {
                   ],
                 ),
               ),
-              // ButtonPage(
-              //   color: Colors.black,
-              //   text: 'Get started',
-              //   onTap: () {
-              //     navigateSignUp(context);
-              //   },
-              // ),
             ],
           ),
         ),
