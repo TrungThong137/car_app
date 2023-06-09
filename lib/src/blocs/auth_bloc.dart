@@ -40,13 +40,14 @@ class AuthBloc{
     return  true;
   }
 
-  void signUp(String email, String pass, String name, String phone, 
-    Function onSuccess, Function(String) onRegisterError){
-    _fireAuth.signUp(email, pass, name, phone, onSuccess, onRegisterError);
+  void signUp(String email, String password, String name, String phone, 
+    Function onSuccess, Function(String) onError){
+    _fireAuth.signUp(email, password, name, phone, onSuccess, onError);
   }
 
-  void signIn(String email, String pass, Function onSuccess, Function(String) onRegisterError){
-    _fireAuth.signIn(email, pass, onSuccess, onRegisterError);
+  void signIn(String email, String password, 
+    Function onSuccess, Function(String) onError){
+    _fireAuth.signIn(email, password, onSuccess, onError);
   }
 
   void dispose(){
