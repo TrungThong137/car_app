@@ -1,8 +1,8 @@
 import 'package:car_app/src/blocs/auth_bloc.dart';
-import 'package:car_app/src/resources/dialog/loading_dialog.dart';
-import 'package:car_app/src/resources/dialog/msg_dialog.dart';
-import 'package:car_app/src/resources/home_page.dart';
-import 'package:car_app/src/resources/register_page.dart';
+import 'package:car_app/src/dialog/loading_dialog.dart';
+import 'package:car_app/src/dialog/msg_dialog.dart';
+import 'package:car_app/src/pages/home/home_page.dart';
+import 'package:car_app/src/pages/register_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:car_app/src/widget/text_largest.dart';
 import 'package:car_app/src/widget/text_small.dart';
