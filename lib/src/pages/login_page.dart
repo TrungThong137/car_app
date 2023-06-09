@@ -137,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
 
     if (email.isEmpty || password.isEmpty) {
       MsgDialog.showMsgDialog(
-          context, 'Error', 'Please enter email and password.');
+          context, 'Error', 'Please try again');
       return;
     }
 
