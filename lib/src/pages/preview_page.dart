@@ -1,4 +1,3 @@
-
 import 'package:car_app/src/pages/login_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +17,9 @@ class _PreviewPageState extends State<PreviewPage> {
   Timer? _timer2;
   int _currentPage1 = 0;
   int _currentPage2 = 0;
+
+  final appIcon = 'assets/app-icon0.png';
+  final colorAppIcon = Colors.black;
 
   @override
   void initState() {
@@ -85,8 +87,8 @@ class _PreviewPageState extends State<PreviewPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/app-icon0.png',
-                  color: Colors.black,
+                  appIcon,
+                  color: colorAppIcon,
                 ),
                 const SizedBox(
                   width: 10,
@@ -132,7 +134,7 @@ class _PreviewPageState extends State<PreviewPage> {
               child: ListView.builder(
                 controller: _pageController2,
                 scrollDirection: Axis.horizontal,
-                reverse: true, 
+                reverse: true,
                 itemCount: 7,
                 itemBuilder: (context, index) {
                   return Image.asset(

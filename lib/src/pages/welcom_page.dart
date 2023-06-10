@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 class WelcomPage extends StatelessWidget {
   const WelcomPage({super.key});
 
+  final welcomImg = 'assets/welcom-img.jpg';
+  final appIcon = 'assets/app-icon0.png';
+  final colorAppIcon = Colors.black; 
+
   void navigateSignUp(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(builder: (_) {
@@ -19,9 +23,9 @@ class WelcomPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/welcom-img.jpg'),
+              image: AssetImage(welcomImg),
               fit: BoxFit.cover,
             ),
           ),
@@ -39,7 +43,7 @@ class WelcomPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,  
                 children: [
-                  Image.asset('assets/app-icon0.png', color: Colors.black),
+                  Image.asset(appIcon, color: colorAppIcon),
                   const Text(
                     'AutoTECH',
                     style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
