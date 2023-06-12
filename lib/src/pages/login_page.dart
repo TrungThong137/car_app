@@ -1,14 +1,15 @@
-import 'package:car_app/src/blocs/auth_bloc.dart';
 import 'package:car_app/src/dialog/loading_dialog.dart';
 import 'package:car_app/src/dialog/msg_dialog.dart';
-import 'package:car_app/src/pages/home/home_page.dart';
+import 'package:car_app/src/firebase/firebase_auth.dart';
+import 'package:car_app/src/pages/main_page.dart';
 import 'package:car_app/src/pages/register_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:car_app/src/widget/check_box.dart';
 import 'package:car_app/src/widget/text_largest.dart';
 import 'package:car_app/src/widget/text_small.dart';
-import 'package:car_app/src/widget/textfield.dart';
+import 'package:car_app/src/widget/textfield_input.dart';
 import 'package:flutter/material.dart';
+import 'package:car_app/src/pages/home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,7 +19,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  AuthBloc authBloc = AuthBloc();
+  final FireAuth _fireAuth= FireAuth();
   final TextEditingController _passController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
@@ -61,15 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                 height: 60,
               ),
               TextFieldPage(
-                  stream: authBloc.emailStream,
                   controller: _emailController,
                   text: 'Email',
                   icon: const Icon(
                     Icons.mail_outline,
                     color: Colors.black26,
-                  )),
+                  ),
+                ),
               TextFieldPage(
-                  stream: authBloc.passStream,
                   controller: _passController,
                   text: 'Password',
                   obscureText: true,
@@ -133,11 +133,11 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onLoginClick() {
     LoadingDialog.showLoadingDialog(context, 'loading...');
-    authBloc.signIn(_emailController.text.trim(), _passController.text.trim(),
+    _fireAuth.signIn(_emailController.text.trim(), _passController.text.trim(),
         () {
       LoadingDialog.hideLoadingDialog(context);
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => const HomePage()));
+          context, MaterialPageRoute(builder: (context) => const MainPage()));
     }, (msg) {
       LoadingDialog.hideLoadingDialog(context);
       MsgDialog.showMsgDialog(context, 'Error', msg);

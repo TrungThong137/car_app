@@ -1,12 +1,12 @@
-import 'package:car_app/src/blocs/auth_bloc.dart';
 import 'package:car_app/src/dialog/loading_dialog.dart';
 import 'package:car_app/src/dialog/msg_dialog.dart';
-import 'package:car_app/src/pages/home/home_page.dart';
+import 'package:car_app/src/firebase/firebase_auth.dart';
+import 'package:car_app/src/pages/main_page.dart';
 import 'package:car_app/src/pages/login_page.dart';
 import 'package:car_app/src/widget/button_page.dart';
 import 'package:car_app/src/widget/text_largest.dart';
 import 'package:car_app/src/widget/text_small.dart';
-import 'package:car_app/src/widget/textfield.dart';
+import 'package:car_app/src/widget/textfield_input.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -18,77 +18,75 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
-  AuthBloc authBloc= AuthBloc();
+  final FireAuth _fireAuth=FireAuth();
   final TextEditingController _nameController= TextEditingController();
   final TextEditingController _passController= TextEditingController();
   final TextEditingController _phoneController= TextEditingController();
   final TextEditingController _emailController= TextEditingController();
-
-  @override
-  void dispose(){
-    authBloc.dispose();
-    super.dispose();
-  }
+  final TextEditingController _cnfController= TextEditingController();
+  bool isName=true;
+  bool isPass=true;
+  bool isEmail=true;
+  bool isPhone=true;
+  bool isCnfPass=true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        elevation: 0,
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 100),
           child: Column(
             children: [
+              AppBar(
+                backgroundColor: Colors.white,
+                iconTheme: const IconThemeData(color: Colors.black),
+                elevation: 0,
+              ),
               Image.asset('assets/app-icon1.png', color: Colors.black,),
-              // Container(
-              //   width: double.maxFinite,
-              //   height: 200,
-              //   margin: const EdgeInsets.only(top: 5),
-              //   decoration: const BoxDecoration(
-              //     image: DecorationImage(
-              //       image: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT47gJJz7Qtjkth1BQXQDHPRebgb9LE4kcQKQ&usqp=CAU'),
-              //       fit: BoxFit.cover
-              //     )
-              //   ),
-              // ),
               const SizedBox(height: 20,),
               const TextLargest(
                 text: "Sign up Your Account", 
               ),
               const SizedBox(height: 6,),
-              // const TextSmall(
-              //   text: 'Signup with iCab in simple steps',
-              //   color: Colors.black54, 
-              // ),
+
               const SizedBox(height: 20,),
               TextFieldPage(
-                stream: authBloc.nameStream,
                 text: 'Name',
                 controller: _nameController,
-                icon: const Icon(Icons.person_outline, color: Colors.black26,)
+                icon: const Icon(Icons.person_outline, color: Colors.black26,),
+                errorText: isName? '' : 'Tên Không Được Để Trống',
               ),
+
               TextFieldPage(
-                stream: authBloc.phoneStream,
                 text: 'Phone Number',
                 controller: _phoneController,
-                icon: const Icon(Icons.phone_outlined, color: Colors.black26,)
+                icon: const Icon(Icons.phone_outlined, color: Colors.black26,),
+                errorText: isPhone? '' : 'Số Điện Thoại Trên 9 số',
               ),
+
               TextFieldPage(
-                stream: authBloc.emailStream,
                 text: 'Email',
                 controller: _emailController,
-                icon: const Icon(Icons.mail_outline, color: Colors.black26,)
+                icon: const Icon(Icons.mail_outline, color: Colors.black26,),
+                errorText: isEmail ? '' : 'Email Phải có @',
               ),
+
               TextFieldPage(
-                stream: authBloc.passStream,
                 controller: _passController,
                 text: 'Password',
                 obscureText: true,
-                icon: const Icon(Icons.lock_outlined, color: Colors.black26,)
+                icon: const Icon(Icons.lock_outlined, color: Colors.black26,),
+                errorText: isPass ? '' : 'Password có ít nhất 7 kí tự',
+              ),
+
+              TextFieldPage(
+                controller: _cnfController,
+                text: 'Confirm Password',
+                obscureText: true,
+                icon: const Icon(Icons.lock_outlined, color: Colors.black26,),
+                errorText: isCnfPass ? '' : 'Không Trùng Khớp Với Mật Khẩu',
               ),
         
               ButtonPage(
@@ -120,17 +118,36 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _onSignUpClicked(){
-    var isValid = authBloc.isValid(
-      _nameController.text.toString().trim(),
-      _emailController.text.toString().trim(), 
-      _phoneController.text.toString().trim(), 
-      _passController.text.toString().trim()
-    );
-    if(isValid){
+    if(_nameController.text.isEmpty){
+      isName=false;
+    }else{
+      isName=true;
+    }
+    if(_passController.text.isEmpty || _passController.text.length<6){
+      isPass=false;
+    }else{
+      isPass=true;
+    }
+    if(_cnfController.text != _passController.text){
+      isCnfPass=false;
+    }else{
+      isCnfPass=true;
+    }
+    if(_emailController.text.contains('@') && _emailController.text.length>6){
+      isEmail=true;
+    }else{
+      isEmail=false;
+    }
+    if(_phoneController.text.isEmpty || _phoneController.text.length<9){
+      isPhone=false;
+    }else{
+      isPhone=true;
+    }
+    if(isCnfPass && isEmail && isPass && isName && isPhone){
       // create user
       // loading dialog
       LoadingDialog.showLoadingDialog(context, 'Loading...');
-      authBloc.signUp(
+      _fireAuth.signUp(
         _emailController.text.toString().trim(), 
         _passController.text.toString().trim(),
         _nameController.text.toString().trim(),
@@ -138,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
         (){
           LoadingDialog.hideLoadingDialog(context);
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => const HomePage()));
+            builder: (context) => const MainPage()));
         },
         (msg){
           // show msg dialog
@@ -147,5 +164,6 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       );
     }
+    setState(() {});
   }
 }

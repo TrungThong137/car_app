@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 
 class FireAuth{
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -14,6 +13,7 @@ class FireAuth{
         _createUser(user.user!.uid, name, phone, onSuccess, onError);
       });
     }on FirebaseAuthException catch (e) {
+      onError('SignIn fail, please try again');
       if(e.code=='weak-password'){
           onError('The password provided is too weak');
       }else if(e.code=='email-already-in-use'){
@@ -45,6 +45,7 @@ class FireAuth{
         onSuccess();
       });
     } on FirebaseAuthException catch (e) {
+      onError('SignIn fail, please try again');
       if (e.code == 'user-not-found') {
         onError('No user found for that email.');
       } else if (e.code == 'wrong-password') {

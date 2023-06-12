@@ -22,9 +22,9 @@ class _DrawerMenuPageState extends State<DrawerMenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: 288,
+        width: 305,
         height: double.infinity,
-        color: const Color.fromRGBO(250, 74, 12, 1),
+        color: Colors.black,
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
