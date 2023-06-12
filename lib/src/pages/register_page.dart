@@ -8,6 +8,8 @@ import 'package:car_app/src/widget/text_largest.dart';
 import 'package:car_app/src/widget/text_small.dart';
 import 'package:car_app/src/widget/textfield_input.dart';
 import 'package:flutter/material.dart';
+import 'package:car_app/src/widget/sidebar_login.dart';
+import 'package:car_app/src/widget/social_icon.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -91,23 +93,57 @@ class _RegisterPageState extends State<RegisterPage> {
         
               ButtonPage(
                 onTap: _onSignUpClicked,
-                text: 'Sign up', 
-                color: Colors.black, 
+                text: 'Sign up',
+                color: Colors.black,
                 colortext: Colors.white,
                 width: double.maxFinite,
                 height: 50,
               ),
-        
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SideBar(),
+                  TextSmall(
+                    text: '   or continue with   ',
+                    color: Color.fromARGB(255, 98, 95, 95),
+                  ),
+                  // Text('   or continue with   '),
+                  SideBar(),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(left: 30, right: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SocialIcon(onTap: () {}, iconPath: 'assets/fb1.png'),
+                    SocialIcon(onTap: () {}, iconPath: 'assets/gg1.png'),
+                    SocialIcon(onTap: () {}, iconPath: 'assets/ios1.png')
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const TextSmall(text: 'Already have an account ? ', color: Colors.black45,),
+                  const TextSmall(
+                    text: 'Already have an account? ',
+                    color: Colors.black45,
+                  ),
                   InkWell(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const LoginPage(),));
-                    },
-                    child: const TextSmall(text: 'Login now', color: Colors.black,))
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ));
+                      },
+                      child: const TextSmall(
+                        text: 'Sign in',
+                        color: Colors.black,
+                      ))
                 ],
               )
             ],

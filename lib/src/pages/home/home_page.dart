@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car_app/src/models/car.dart';
 import 'package:car_app/src/widget/car_company.dart';
 import 'package:car_app/src/widget/discount_car.dart';
@@ -20,10 +22,41 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final PageController _controller = PageController();
+  final PageController _controller = PageController(initialPage: 0);
   int isIndex=0;
   bool isActive=false;
   int indexCompanyCar=0;
+  int currentIndex=0;
+  late Timer timer;
+
+  @override
+  void initState(){
+    super.initState();
+    autoShowCar();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
+    _controller.dispose();
+  }
+
+  void autoShowCar(){
+    timer = Timer.periodic(
+      const Duration(seconds: 1), (timer) { 
+      if(currentIndex<car.length-1){
+        currentIndex++;
+      }else{
+        currentIndex=0;
+      }
+      _controller.animateToPage(
+        currentIndex,
+        duration: const Duration(seconds: 2), 
+        curve: Curves.linear
+      );
+    });
+  } 
 
   @override
   Widget build(BuildContext context) {
