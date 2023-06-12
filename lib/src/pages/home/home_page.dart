@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
 
   void autoShowCar(){
     timer = Timer.periodic(
-      const Duration(seconds: 1), (timer) { 
+      const Duration(seconds: 2), (timer) { 
       if(currentIndex<car.length-1){
         currentIndex++;
       }else{
@@ -52,8 +52,8 @@ class _HomePageState extends State<HomePage> {
       }
       _controller.animateToPage(
         currentIndex,
-        duration: const Duration(seconds: 2), 
-        curve: Curves.linear
+        duration: const Duration(milliseconds: 200), 
+        curve: Curves.bounceInOut
       );
     });
   } 
