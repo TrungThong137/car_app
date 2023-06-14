@@ -134,11 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ));
+                        Navigator.pop(context);
                       },
                       child: const TextSmall(
                         text: 'Sign in',
