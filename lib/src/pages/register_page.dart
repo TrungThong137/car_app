@@ -64,18 +64,21 @@ class _RegisterPageState extends State<RegisterPage> {
       // loading dialog
       LoadingDialog.showLoadingDialog(context, 'Loading...');
       _fireAuth.signUp(
-          _emailController.text.toString().trim(),
-          _passController.text.toString().trim(),
-          _nameController.text.toString().trim(),
-          _phoneController.text.toString().trim(), () {
-        LoadingDialog.hideLoadingDialog(context);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const MainPage()));
-      }, (msg) {
-        // show msg dialog
-        LoadingDialog.hideLoadingDialog(context);
-        MsgDialog.showMsgDialog(context, 'Sign-In', msg);
-      });
+        _emailController.text.toString().trim(),
+        _passController.text.toString().trim(),
+        _nameController.text.toString().trim(),
+        _phoneController.text.toString().trim(),
+        () {
+          LoadingDialog.hideLoadingDialog(context);
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const MainPage()));
+        },
+        (msg) {
+          // show msg dialog
+          LoadingDialog.hideLoadingDialog(context);
+          MsgDialog.showMsgDialog(context, 'Sign-In', msg);
+        },
+      );
     }
     setState(() {});
   }

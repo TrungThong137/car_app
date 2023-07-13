@@ -4,14 +4,31 @@ import 'package:firebase_database/firebase_database.dart';
 class FireAuth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  void signUp(String email, String password, String name, String phone,
-      Function onSuccess, Function(String) onError) async {
+  void signUp(
+    String email,
+    String password,
+    String name,
+    String phone,
+    Function onSuccess,
+    Function(String) onError,
+  ) async {
     try {
       await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((user) {
-        _createUser(user.user!.uid, name, phone, onSuccess, onError);
-      });
+          .createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      )
+          .then(
+        (user) {
+          _createUser(
+            user.user!.uid,
+            name,
+            phone,
+            onSuccess,
+            onError,
+          );
+        },
+      );
     } on FirebaseAuthException catch (e) {
       onError('SignIn fail, please try again');
       if (e.code == 'weak-password') {
