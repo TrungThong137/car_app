@@ -1,7 +1,7 @@
 import 'package:car_app/src/provider_app/provier_app_car.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:car_app/src/pages/welcom_page.dart';
+import 'package:car_app/src/pages/splash_page/welcom_page.dart';
 import 'package:provider/provider.dart';
 
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
-        home: const WelcomPage()
+        home: const SplashScreen()
       ),
     ); 
   }

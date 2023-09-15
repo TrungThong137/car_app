@@ -12,20 +12,20 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: const CircleAvatar(
-        backgroundColor: Colors.white24,
+        backgroundColor: Colors.amber,
         child: Icon(Icons.person_outline, color: Colors.white,),
       ),
       title: Text(
         name,
         style: const TextStyle(
-          color: Colors.white
+          color: Colors.black
         ),
       ),
 
       subtitle: Text(
         profession,
         style: const TextStyle(
-          color: Colors.white
+          color: Colors.black
         ),
       ),
     );

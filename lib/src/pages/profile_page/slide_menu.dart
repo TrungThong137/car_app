@@ -38,11 +38,11 @@ class SlideMenuTitle extends StatelessWidget {
             leading: SizedBox(
               height: 34,
               width: 34,
-              child: Icon(icon, color: Colors.white,),
+              child: Icon(icon, color: Colors.black,),
             ),
             title: Text(
               text??"",
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.black),
             )
           ),
         ]

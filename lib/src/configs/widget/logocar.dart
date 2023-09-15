@@ -1,4 +1,4 @@
-import 'package:car_app/src/widget/text_small.dart';
+import 'package:car_app/src/configs/widget/text_small.dart';
 import 'package:flutter/material.dart';
 
 class LogoCar extends StatelessWidget {

@@ -1,6 +1,6 @@
 
 
-import 'package:car_app/src/widget/text_largest.dart';
+import 'package:car_app/src/configs/widget/text_largest.dart';
 import 'package:flutter/material.dart';
 
 class DiscountCar extends StatefulWidget {

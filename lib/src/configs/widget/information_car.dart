@@ -1,6 +1,6 @@
 import 'package:car_app/src/models/car.dart';
 import 'package:car_app/src/provider_app/provier_app_car.dart';
-import 'package:car_app/src/widget/discount_car.dart';
+import 'package:car_app/src/configs/widget/discount_car.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

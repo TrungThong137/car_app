@@ -1,5 +1,5 @@
-import 'package:car_app/src/pages/login_page.dart';
-import 'package:car_app/src/widget/button_page.dart';
+import 'package:car_app/src/pages/login_page/login_page.dart';
+import 'package:car_app/src/configs/widget/button_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -29,9 +29,8 @@ class _PreviewPageState extends State<PreviewPage> {
 
   @override
   void dispose() {
-    _stopAutoScroll();
-    _pageController1.dispose();
-    _pageController2.dispose();
+    _timer1!.cancel();
+    _timer2!.cancel();
     super.dispose();
   }
 
@@ -63,11 +62,6 @@ class _PreviewPageState extends State<PreviewPage> {
     });
   }
 
-  void _stopAutoScroll() {
-    _timer1?.cancel();
-    _timer2?.cancel();
-  }
-
   void navigateSignUp(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(builder: (_) {
@@ -93,9 +87,9 @@ class _PreviewPageState extends State<PreviewPage> {
                 const SizedBox(
                   width: 10,
                 ),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'AutoTECH',
                       style: TextStyle(

@@ -1,15 +1,15 @@
 import 'package:car_app/src/dialog/loading_dialog.dart';
 import 'package:car_app/src/dialog/msg_dialog.dart';
 import 'package:car_app/src/firebase/firebase_auth.dart';
-import 'package:car_app/src/pages/main_page.dart';
-import 'package:car_app/src/pages/login_page.dart';
-import 'package:car_app/src/widget/button_page.dart';
-import 'package:car_app/src/widget/text_largest.dart';
-import 'package:car_app/src/widget/text_small.dart';
-import 'package:car_app/src/widget/textfield_input.dart';
+import 'package:car_app/src/pages/main/main_page.dart';
+import 'package:car_app/src/pages/login_page/login_page.dart';
+import 'package:car_app/src/configs/widget/button_page.dart';
+import 'package:car_app/src/configs/widget/text_largest.dart';
+import 'package:car_app/src/configs/widget/text_small.dart';
+import 'package:car_app/src/configs/widget/textfield_input.dart';
 import 'package:flutter/material.dart';
-import 'package:car_app/src/widget/sidebar_login.dart';
-import 'package:car_app/src/widget/social_icon.dart';
+import 'package:car_app/src/configs/widget/sidebar_login.dart';
+import 'package:car_app/src/configs/widget/social_icon.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -114,9 +114,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 50,
               ),
               const SizedBox(height: 20),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SideBar(),
                   TextSmall(
                     text: '   or continue with   ',

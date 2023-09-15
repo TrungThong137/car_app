@@ -1,15 +1,16 @@
+
 import 'dart:async';
 
 import 'package:car_app/src/firebase/firestore.dart';
 import 'package:car_app/src/models/car.dart';
-import 'package:car_app/src/pages/top_deals_page.dart';
-import 'package:car_app/src/widget/discount_car.dart';
-import 'package:car_app/src/widget/information_car.dart';
-import 'package:car_app/src/widget/logocar.dart';
-import 'package:car_app/src/widget/text_largest.dart';
-import 'package:car_app/src/widget/text_small.dart';
-import 'package:car_app/src/widget/textfile_search.dart';
-import 'package:car_app/src/widget/title_row.dart';
+import 'package:car_app/src/pages/deals_page/top_deals_page.dart';
+import 'package:car_app/src/configs/widget/discount_car.dart';
+import 'package:car_app/src/configs/widget/information_car.dart';
+import 'package:car_app/src/configs/widget/logocar.dart';
+import 'package:car_app/src/configs/widget/text_largest.dart';
+import 'package:car_app/src/configs/widget/text_small.dart';
+import 'package:car_app/src/configs/widget/textfile_search.dart';
+import 'package:car_app/src/configs/widget/title_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   bool isActive=false;
   int indexCompanyCar=0;
   int currentIndex=0;
-  late Timer timer;
+  Timer? timer;
 
   List _foundCar=[];
 
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
-    timer.cancel();
+    timer?.cancel();
     _controller.dispose();
   }
 
@@ -95,9 +96,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return Scaffold(
       body: DefaultTabController(
         length: companyCar.length,

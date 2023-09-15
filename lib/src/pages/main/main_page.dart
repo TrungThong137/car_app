@@ -1,11 +1,11 @@
 import 'package:car_app/src/models/infor_drawer.dart';
 import 'package:flutter/material.dart';
 
-import 'home/home_page.dart';
-import 'inbox_page.dart';
-import 'order_page.dart';
-import 'profile_page.dart';
-import 'wallet_page.dart';
+import '../home/home_page.dart';
+import '../inbox_page.dart';
+import '../order_page.dart';
+import '../profile_page/profile_page.dart';
+import '../splash_page/wallet_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
