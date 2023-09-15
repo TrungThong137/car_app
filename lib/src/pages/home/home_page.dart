@@ -1,7 +1,8 @@
 import 'dart:async';
 
+import 'package:car_app/src/firebase/firestore.dart';
 import 'package:car_app/src/models/car.dart';
-import 'package:car_app/src/widget/car_company.dart';
+import 'package:car_app/src/pages/top_deals_page.dart';
 import 'package:car_app/src/widget/discount_car.dart';
 import 'package:car_app/src/widget/information_car.dart';
 import 'package:car_app/src/widget/logocar.dart';
@@ -29,10 +30,13 @@ class _HomePageState extends State<HomePage> {
   int currentIndex=0;
   late Timer timer;
 
+  List _foundCar=[];
+
   @override
   void initState(){
     super.initState();
-    autoShowCar();
+    // autoShowCar();
+    _foundCar=informationCar;
   }
 
   @override
@@ -42,153 +46,215 @@ class _HomePageState extends State<HomePage> {
     _controller.dispose();
   }
 
-  void autoShowCar(){
-    timer = Timer.periodic(
-      const Duration(seconds: 2), (timer) { 
-      if(currentIndex<car.length-1){
-        currentIndex++;
-      }else{
-        currentIndex=0;
-      }
-      _controller.animateToPage(
-        currentIndex,
-        duration: const Duration(milliseconds: 200), 
-        curve: Curves.bounceInOut
-      );
+  void _runFilter(String enteredKeyword){
+    List results = [];
+    if (enteredKeyword.isEmpty) {
+      results = informationCar;
+    } else {
+      results = informationCar
+        .where((user) =>
+        user.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+        .toList();
+    }
+    setState(() {
+      _foundCar=results;
     });
-  } 
+  }
+
+  // void autoShowCar(){
+  //   timer = Timer.periodic(
+  //     const Duration(seconds: 2), (timer) { 
+  //     if(currentIndex<car.length-1){
+  //       currentIndex++;
+  //     }else{
+  //       currentIndex=0;
+  //     }
+  //     _controller.animateToPage(
+  //       currentIndex,
+  //       duration: const Duration(milliseconds: 200), 
+  //       curve: Curves.bounceInOut
+  //     );
+  //   });
+  // } 
+
+  Widget listCars(){
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        mainAxisExtent: 250
+      ), 
+      itemCount: _foundCar.length,
+      itemBuilder: (context, index) => InformationCar(
+        key: ValueKey(_foundCar[index].id),
+        car: _foundCar[index],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children:[
-            Container(
-              margin: const EdgeInsets.only(top: 250, left: 20, right: 20),
-              width: double.maxFinite,
-              height: 200,
-              child: PageView.builder(
-                controller: _controller,
-                itemCount: car.length,
-                itemBuilder: (context, index) => DiscountCar(
-                  discount: car[index].discount, 
-                  imageCar: car[index].imageCar
-                ),
-              ),
-            ),
-
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 430, horizontal: 150),
-              child: SmoothPageIndicator(
-                controller: _controller, 
-                count: car.length,
-                effect: const ExpandingDotsEffect(
-                  spacing: 12,
-                  dotColor: Colors.grey,
-                  strokeWidth: 1,
-                  dotWidth: 7,
-                  dotHeight: 7,
-                  activeDotColor: Colors.black
-                ),
-                onDotClicked: (index) => _controller.animateToPage(
-                  index, 
-                  duration: const Duration(milliseconds: 500), 
-                  curve: Curves.linear
-                ),
-              ),
-            ),
-
-            Column(
-              children: [
-                const SizedBox(height: 50,),
-                ListTile(
-                  leading: const CircleAvatar(
-                    backgroundColor: Colors.brown,
-                  ),
-                  contentPadding: const EdgeInsets.only(left: 18, right: 20),
-                  title: const TextSmall(text: 'Welcome Back', color: Colors.black54,),
-                  subtitle: const TextLargest(text: 'Andrew Ainsley'),
-                  trailing: SizedBox(
-                    width: 60,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/notification-bing.svg'),
-                        const SizedBox(width: 12,),
-                        SvgPicture.asset('assets/heart.svg'),
-                      ],
-                    ),
-                  )
-                ),
-          
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 10,),
-                      const TextFieldSearch(), 
-                
-                      const SizedBox(height: 20,),
-                      const TitleRow(textLeft: "Special Offsers", 
-                        textRight: 'See All'
-                      ),
-          
-                      const SizedBox(height: 230,),
-          
-                      logoCars(),
-
-                      const TitleRow(
-                        textLeft: 'Top Deals', 
-                        textRight: 'See All'
-                      ),
-
-                      Container(
-                        margin: const EdgeInsets.only(top: 20 ),
-                        height: 30,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: companyCar.length,
-                          itemBuilder: (context, index) => InkWell(
-                            onTap: () {
-                              setState(() {
-                                indexCompanyCar=index;
-                              });
+      body: DefaultTabController(
+        length: companyCar.length,
+        child: SingleChildScrollView(
+          child: Stack(
+            children:[
+              Container(
+                margin: const EdgeInsets.only(top: 250, left: 20, right: 20),
+                width: double.maxFinite,
+                height: 200,
+                child: StreamBuilder(
+                  stream: FireStore.readNewspaper(),
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData){
+                      return Stack(
+                        children:[
+                          PageView.builder(
+                            controller: _controller,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              final car= snapshot.data![index];
+                                return DiscountCar(
+                                  imageCar: car.imageCar,
+                                  discount: car.discount,
+                                );
                             },
-                            child: CarCompany(
-                              colorText: indexCompanyCar==index ? Colors.white : Colors.black,
-                              text: companyCar[index].logoName,
-                              backgroundColor: indexCompanyCar==index ? Colors.black : Colors.white,
-                              width: 100,
+                          ),
+
+                          Positioned(
+                            bottom: 20,
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 130),
+                              child: SmoothPageIndicator(
+                                controller: _controller, 
+                                count: snapshot.data!.length,
+                                effect: const ExpandingDotsEffect(
+                                  spacing: 12,
+                                  dotColor: Colors.grey,
+                                  strokeWidth: 1,
+                                  dotWidth: 7,
+                                  dotHeight: 7,
+                                  activeDotColor: Colors.black
+                                ),
+                                onDotClicked: (index) => _controller.animateToPage(
+                                  index, 
+                                  duration: const Duration(milliseconds: 500), 
+                                  curve: Curves.linear
+                                ),
+                              ),
                             ),
-                          )
-                        ),
+                          ),
+                        ] 
+                      );
+                    }else{
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                  },
+                ),
+              ),
+      
+              Column(
+                children: [
+                  const SizedBox(height: 50,),
+                  ListTile(
+                    leading: const CircleAvatar(
+                      backgroundColor: Colors.brown,
+                    ),
+                    contentPadding: const EdgeInsets.only(left: 18, right: 20),
+                    title: const TextSmall(text: 'Welcome Back', color: Colors.black54,),
+                    subtitle: const TextLargest(text: 'Andrew Ainsley'),
+                    trailing: SizedBox(
+                      width: 60,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/notification-bing.svg'),
+                          const SizedBox(width: 12,),
+                          SvgPicture.asset('assets/heart.svg'),
+                        ],
                       ),
+                    )
+                  ),
+            
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 10,),
+      
+                        TextFieldSearch(
+                          onChange: (value) => _runFilter(value),
+                        ), 
+                  
+                        const SizedBox(height: 20,),
+                        TitleRow(textLeft: "Special Offsers", 
+                          textRight: 'See All',
+                          onTap: (){},
+                        ),
+            
+                        const SizedBox(height: 230,),
+            
+                        logoCars(),
+      
+                        TitleRow(
+                          textLeft: 'Top Deals', 
+                          textRight: 'See All',
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context)=>const TopDealsPage()));
+                          },
+                        ),
 
+                        const SizedBox(height: 20,),
+      
+                        TabBar(
+                          tabs: List.generate(companyCar.length, (index) => 
+                            Container(
+                              height: 30,
+                              width: 80,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(color: Colors.black, width: 2)
+                              ),
+                              child: Text(companyCar[index].logoName),
+                            ),
+                          ),
+                          isScrollable: true,
+                          labelColor: Colors.white,
+                          labelStyle: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          indicator: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          unselectedLabelColor: Colors.black,
+                        ),
 
-                      SizedBox(
-                        height: 500,
-                        child: GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            mainAxisExtent: 250
-                          ), 
-                          itemCount: informationCar.length,
-                          itemBuilder: (context, index) => InformationCar(
-                            car: informationCar[index],
+                        SizedBox(
+                          height: 500,
+                          child: TabBarView(
+                            children: List.generate(companyCar.length, (index) => 
+                              listCars()
+                            )
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 50,)
-                    ],
+                        const SizedBox(height: 50,)
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ]
+                ],
+              ),
+            ]
+          ),
         ),
       ),
     );

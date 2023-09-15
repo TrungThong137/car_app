@@ -26,7 +26,7 @@ class FireAuth{
 
   _createUser(String userId, String name, String phone, Function onSuccess,
     Function(String) onError){
-      var user = Map<String, String>();
+      var user = <String, String>{};
       user['name']=name;
       user['phone']=phone;
       var ref= FirebaseDatabase.instance.ref().child('user');

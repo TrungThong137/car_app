@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class TitleRow extends StatelessWidget {
   const TitleRow({super.key, 
     required this.textLeft, 
-    required this.textRight
+    required this.textRight, 
+    required this.onTap
   });
   final String textLeft;
   final String textRight;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,9 @@ class TitleRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children:[
         TextLargest(text: textLeft),
-        TextSmall(text: textRight, fontWeight: FontWeight.bold,)
+        InkWell(
+          onTap: onTap,
+          child: TextSmall(text: textRight, fontWeight: FontWeight.bold,))
       ],
     );
   }

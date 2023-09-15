@@ -65,19 +65,6 @@ class _DiscountCarState extends State<DiscountCar> {
               width: widget.widthCar,
             ),
           ),
-          !widget.isText? Positioned(
-            top: 5,
-            right: 10,
-            child: IconButton(
-              onPressed: (){
-                setState(() {
-                  isHeart=!isHeart;
-                });
-              },
-              icon:isHeart? const Icon(Icons.favorite_outline, color: Colors.black,)
-                :const Icon(Icons.favorite, color: Colors.red,)
-            )
-          ): Container()
         ],
       ),
     );

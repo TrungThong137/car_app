@@ -31,6 +31,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool isEmail=true;
   bool isPhone=true;
   bool isCnfPass=true;
+  bool isShowPass=false;
+  bool isShowPassCnf=false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,17 +80,29 @@ class _RegisterPageState extends State<RegisterPage> {
               TextFieldPage(
                 controller: _passController,
                 text: 'Password',
-                obscureText: true,
+                obscureText: !isShowPass,
                 icon: const Icon(Icons.lock_outlined, color: Colors.black26,),
                 errorText: isPass ? '' : 'Password có ít nhất 7 kí tự',
+                isSuffixIcon: true,
+                onTap: (){
+                  setState(() {
+                    isShowPass=!isShowPass;
+                  });
+                },
               ),
 
               TextFieldPage(
                 controller: _cnfController,
                 text: 'Confirm Password',
-                obscureText: true,
+                obscureText: !isShowPassCnf,
                 icon: const Icon(Icons.lock_outlined, color: Colors.black26,),
                 errorText: isCnfPass ? '' : 'Không Trùng Khớp Với Mật Khẩu',
+                isSuffixIcon: true,
+                onTap: (){
+                  setState(() {
+                    isShowPassCnf=!isShowPassCnf;
+                  });
+                },
               ),
         
               ButtonPage(

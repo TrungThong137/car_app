@@ -1,35 +1,25 @@
-import 'package:car_app/src/widget/text_small.dart';
+import 'package:car_app/src/widget/information_car.dart';
 import 'package:flutter/material.dart';
 
 class CarCompany extends StatelessWidget {
   const CarCompany({super.key, 
-    this.width=50, 
-    this.isSelect=false, 
-    required this.text, 
-    required this.backgroundColor,
-    required this.colorText
+    required this.foundCar
   });
-  final double width;
-  final bool isSelect;
-  final String text;
-  final Color backgroundColor;
-  final Color colorText;
+  final List foundCar;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 12),
-      width: width,
-      height: 27,
-      padding: const EdgeInsets.all(3),
-      decoration: BoxDecoration(
-        color: backgroundColor ,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.black, width: 2)
-      ),
-      child: TextSmall(
-        text: text,
-        color:colorText
+    return  GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        mainAxisExtent: 250
+      ), 
+      itemCount: foundCar.length,
+      itemBuilder: (context, index) => InformationCar(
+        key: ValueKey(foundCar[index].id),
+        car: foundCar[index],
       ),
     );
   }

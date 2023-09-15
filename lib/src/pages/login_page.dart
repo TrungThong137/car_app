@@ -11,7 +11,6 @@ import 'package:car_app/src/widget/text_largest.dart';
 import 'package:car_app/src/widget/text_small.dart';
 import 'package:car_app/src/widget/textfield_input.dart';
 import 'package:flutter/material.dart';
-import 'package:car_app/src/pages/home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -42,9 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   width: 10,
                 ),
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       'AutoTECH',
                       style: TextStyle(
@@ -81,9 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.black26,
                   )),
               const SizedBox(height: 10),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const [
+                children: [
                   CheckBox(),
                   SizedBox(width: 20),
                   TextSmall(
@@ -101,9 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                 width: double.maxFinite,
                 height: 50,
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   SideBar(),
                   TextSmall(
                     text: '   or continue with   ',
@@ -157,14 +156,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _onLoginClick() {
-    String email = _emailController.text.trim();
-    String password = _passController.text.trim();
-
-    if (email.isEmpty || password.isEmpty) {
-      MsgDialog.showMsgDialog(context, 'Error', 'Please try again');
-      return;
-    }
-
     LoadingDialog.showLoadingDialog(context, 'loading...');
     _fireAuth.signIn(_emailController.text.trim(), _passController.text.trim(),
         () {

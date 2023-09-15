@@ -5,20 +5,39 @@ class Car{
   String logoName;
   String name;
   String price;
+  String logoCar;
+  String id;
   Car({
     this.discount='', this.imageCar='',
     this.logoName='', this.name='',
-    this.price=''
+    this.price='', this.id='',
+    this.logoCar=''
   });
+
+  static Car fromJson(Map<String, dynamic> json) => Car(
+    id: json['id'],
+    discount: json['discount'],
+    imageCar: json['imageCar'],
+    logoCar: json['logoCar'],
+    logoName: json['logoName'],
+    name: json['name'],
+    price: json['price'],
+  );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'discount': discount,
+    'imageCar': imageCar,
+    'logoCar': logoCar,
+    'logoName': logoName,
+    'name': name,
+    'price': price,
+  };
 }
 
-List car=[
-  Car(discount: '20%', imageCar: 'assets/g63.png'),
-  Car(discount: '20%', imageCar: 'assets/ddds.png'),
-  Car(discount: '20%', imageCar: 'assets/f-15.png'),
-  Car(discount: '20%', imageCar: 'assets/fiat-min-van.png'),
-  Car(discount: '20%', imageCar: 'assets/range.png'),
-];
+// List<Car> car=[
+//   Car(id: id)
+// ];
 
 List logoCar=[
   Car(logoName: 'Mercedes', imageCar: 'assets/mercedes-logo.png'),
