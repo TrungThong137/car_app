@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/shared_preferences.dart';
 
@@ -46,7 +45,7 @@ class FireAuth{
         email: email, password: password
       ).then((user)async{
         user.user?.getIdToken().then((idToken) async {
-          await AppPref.setToken(idToken);
+          await AppPref.setToken(idToken!);
         });
         onSuccess();
       });
