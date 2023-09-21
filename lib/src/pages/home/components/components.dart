@@ -1,0 +1,1 @@
+export 'information_car.dart';

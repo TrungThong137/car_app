@@ -1,16 +1,18 @@
 
 import 'dart:async';
 
+import 'package:car_app/src/configs/base/base.dart';
 import 'package:car_app/src/firebase/firestore.dart';
 import 'package:car_app/src/models/car.dart';
 import 'package:car_app/src/pages/deals_page/top_deals_page.dart';
 import 'package:car_app/src/configs/widget/discount_car.dart';
-import 'package:car_app/src/configs/widget/information_car.dart';
+import 'package:car_app/src/pages/home/components/information_car.dart';
 import 'package:car_app/src/configs/widget/logocar.dart';
 import 'package:car_app/src/configs/widget/text_largest.dart';
 import 'package:car_app/src/configs/widget/text_small.dart';
 import 'package:car_app/src/configs/widget/textfile_search.dart';
 import 'package:car_app/src/configs/widget/title_row.dart';
+import 'package:car_app/src/pages/home/home_page_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -79,23 +81,44 @@ class _HomePageState extends State<HomePage> {
   // } 
 
   Widget listCars(){
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 20,
-        mainAxisSpacing: 20,
-        mainAxisExtent: 250
-      ), 
-      itemCount: _foundCar.length,
-      itemBuilder: (context, index) => InformationCar(
-        key: ValueKey(_foundCar[index].id),
-        car: _foundCar[index],
+    return Padding(
+      padding:const EdgeInsets.only(bottom: 20),
+      child: GridView.builder(
+        shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
+          mainAxisExtent: 250
+        ), 
+        itemCount: _foundCar.length,
+        itemBuilder: (context, index) => InformationCar(
+          key: ValueKey(_foundCar[index].id),
+          car: _foundCar[index],
+          listCar: _viewModel!.listCar,
+          onPressed: () {
+            if(!_viewModel!.listCar.contains(_foundCar[index])){
+              _viewModel!.listCar.add(_foundCar[index]);
+            }else{
+              _viewModel!.listCar.removeAt(_foundCar[index]);
+            }
+          },
+        ),
       ),
     );
   }
 
+  HomePageViewModel? _viewModel;
+
   @override
   Widget build(BuildContext context) {
+    return BaseWidget(
+      viewModel: HomePageViewModel(), 
+      onViewModelReady: (viewModel) => _viewModel=viewModel!..init(),
+      builder: (context, viewModel, child) => buildHomeScreen(),);
+  }
+
+  Widget buildHomeScreen(){
     return Scaffold(
       body: DefaultTabController(
         length: companyCar.length,

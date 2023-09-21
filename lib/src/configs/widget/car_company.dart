@@ -1,4 +1,4 @@
-import 'package:car_app/src/configs/widget/information_car.dart';
+import 'package:car_app/src/pages/home/components/information_car.dart';
 import 'package:flutter/material.dart';
 
 class CarCompany extends StatelessWidget {
